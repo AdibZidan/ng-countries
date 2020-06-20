@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderModule } from '../header/header.module';
+import { CountryModule } from '../country/country.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -12,7 +13,8 @@ import { HeaderModule } from '../header/header.module';
     BrowserModule,
     CommonModule,
     AppRoutingModule,
-    HeaderModule
+    HeaderModule,
+    CountryModule
   ],
   bootstrap: [AppComponent]
 })

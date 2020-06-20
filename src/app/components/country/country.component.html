@@ -1,0 +1,29 @@
+<ng-container *ngIf="countries$ | async as countries">
+  <article>
+    <ng-container *ngFor="let country of countries">
+      <div [class]="mode$ | async" class="country-container">
+        <img [src]="country.flag" [alt]="country.name" [title]="country.name">
+
+        <div class="information-container">
+          <p class="name">
+            <strong [title]="'Name: ' + country.name">
+              {{ country.name }}
+            </strong>
+          </p>
+
+          <p class="population" [title]="'Population: ' + country.population">
+            Population: {{ country.population | number: '1.0' }}
+          </p>
+
+          <p class="region" [title]="'Region: ' + country.region">
+            Region: {{ country.region }}
+          </p>
+
+          <p class="capital" [title]="'Capital: ' + country.capital">
+            Capital: {{ country.capital }}
+          </p>
+        </div>
+      </div>
+    </ng-container>
+  </article>
+</ng-container>

@@ -1,0 +1,60 @@
+@mixin country-component {
+  .dark {
+    background-color: #2b3945;
+  }
+
+  .light {
+    background-color: #fff;
+  }
+
+  article {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    max-width: 70%;
+    margin: auto;
+
+    .country-container {
+      display: flex;
+      flex-direction: column;
+
+      margin: 15px;
+
+      max-width: 325px;
+
+      border-radius: 30px;
+
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+      transition: box-shadow 0.7s ease-in-out;
+
+      &:hover {
+        cursor: pointer;
+
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+      }
+
+      img {
+        width: 100%;
+        height: 200px;
+
+        object-fit: cover;
+
+        margin-bottom: 10px;
+      }
+
+      .information-container {
+        padding: 10px;
+
+        p {
+          padding: 5px;
+        }
+
+        .name {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}
