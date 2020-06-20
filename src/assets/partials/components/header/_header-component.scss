@@ -1,0 +1,44 @@
+@mixin header-component {
+  .dark {
+    background-color: hsl(209, 23%, 22%);
+    box-shadow: 0 2px 2px -2px hsl(200, 15%, 8%);
+  }
+
+  .light {
+    background-color: #f3f3f3;
+    box-shadow: 0 2px 2px -2px #ccc;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+
+    height: 80px;
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+
+      margin: 0 55px 0 55px;
+      width: 100%;
+
+      h2 {
+        font-size: 2rem;
+      }
+
+      span {
+        display: flex;
+        justify-content: space-around;
+        align-self: center;
+
+        width: 110px;
+
+        cursor: pointer;
+
+        i {
+          align-self: center;
+        }
+      }
+    }
+  }
+}

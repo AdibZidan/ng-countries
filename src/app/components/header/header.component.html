@@ -1,0 +1,21 @@
+<header [class]="mode$ | async">
+  <nav>
+    <h2>
+      Where in the world?
+    </h2>
+
+    <ng-container *ngIf="isDarkMode; else isLightMode">
+      <span class="dark-mode" (click)="onThemeToggle()">
+        <i class="fa fa-moon-o"></i>
+        Dark Mode
+      </span>
+    </ng-container>
+
+    <ng-template #isLightMode>
+      <span class="light-mode" (click)="onThemeToggle()">
+        <i class="fa fa-sun-o"></i>
+        Light Mode
+      </span>
+    </ng-template>
+  </nav>
+</header>
