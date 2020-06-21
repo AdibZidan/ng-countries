@@ -1,21 +1,21 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CountryComponent } from './country.component';
+import { CountriesComponent } from './countries.component';
 
-describe('Country Component', () => {
+describe('Countries Component', () => {
 
-  let component: CountryComponent;
-  let fixture: ComponentFixture<CountryComponent>;
+  let component: CountriesComponent;
+  let fixture: ComponentFixture<CountriesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CountryComponent],
+      declarations: [CountriesComponent],
       imports: [HttpClientTestingModule]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CountryComponent);
+    fixture = TestBed.createComponent(CountriesComponent);
     component = fixture.componentInstance;
   });
 

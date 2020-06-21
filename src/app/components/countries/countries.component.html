@@ -1,0 +1,8 @@
+<ng-container *ngIf="countries$ | async as countries">
+  <article>
+    <app-country
+      *ngFor="let country of countries"
+      [country]="country">
+    </app-country>
+  </article>
+</ng-container>

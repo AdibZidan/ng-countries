@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { Theme } from './shared/enums/theme.enum';
-import { CountryModule } from './shared/modules/country/country.module';
 import { HeaderModule } from './shared/modules/header/header.module';
 
 describe('Application Component', () => {
@@ -15,7 +14,6 @@ describe('Application Component', () => {
       declarations: [AppComponent],
       imports: [
         HeaderModule,
-        CountryModule,
         RouterTestingModule
       ]
     }).compileComponents();

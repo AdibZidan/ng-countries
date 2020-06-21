@@ -1,0 +1,7 @@
+<ng-container *ngIf="country$ | async as country">
+  <ng-container *ngIf="country">
+    <article>
+      <img [src]="country.flag" [alt]="country.name">
+    </article>
+  </ng-container>
+</ng-container>

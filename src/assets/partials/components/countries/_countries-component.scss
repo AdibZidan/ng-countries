@@ -1,0 +1,18 @@
+@mixin countries-component {
+  .dark {
+    background-color: #2b3945;
+  }
+
+  .light {
+    background-color: #fff;
+  }
+
+  article {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    max-width: 70%;
+    margin: auto;
+  }
+}

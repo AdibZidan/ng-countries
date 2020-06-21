@@ -1,7 +1,9 @@
 <header [class]="mode$ | async">
   <nav>
     <h2>
-      Where in the world?
+      <a [routerLink]="'/'">
+        Where in the world?
+      </a>
     </h2>
 
     <ng-container *ngIf="isDarkMode; else isLightMode">

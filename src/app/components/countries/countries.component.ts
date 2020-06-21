@@ -6,13 +6,14 @@ import { Country } from '../../shared/interfaces/country.interface';
 import { ThemeService } from '../../shared/services/theme/theme.service';
 
 @Component({
-  selector: 'app-country',
-  templateUrl: './country.component.html',
-  styleUrls: ['./country.component.scss']
+  selector: 'app-countries',
+  templateUrl: './countries.component.html',
+  styleUrls: ['./countries.component.scss']
 })
-export class CountryComponent implements OnInit {
+export class CountriesComponent implements OnInit {
 
   public mode$: Observable<Theme>;
+
   public countries$: Observable<Country[]>;
 
   constructor(
