@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of, OperatorFunction } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 import { Country } from '../../../shared/interfaces/country.interface';
 import { CountryService } from '../../../shared/services/country/country.service';
 
@@ -12,6 +13,7 @@ import { CountryService } from '../../../shared/services/country/country.service
 export class DetailComponent implements OnInit {
 
   public country$: Observable<Country>;
+  public borderCountry$: Observable<Country>;
 
   constructor(
     private countryService: CountryService,
@@ -28,7 +30,24 @@ export class DetailComponent implements OnInit {
       .params
       .country;
 
-    return this.country$ = this.countryService.getCountry(country);
+    return this.country$ = this.countryService
+      .getCountry(country)
+      .pipe(
+        this.mergeWithBorderCountries()
+      );
+  }
+
+  private mergeWithBorderCountries(): OperatorFunction<Country, Country> {
+    return mergeMap(
+      (country: Country): Observable<Country> => {
+        this.getCountryBorderCodes(country.borders);
+
+        return of(country);
+      });
+  }
+
+  private getCountryBorderCodes(codes: string[]): void {
+    this.borderCountry$ = this.countryService.getCountryCode(codes);
   }
 
 }
