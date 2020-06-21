@@ -9,7 +9,7 @@ import { Country } from '../../interfaces/country.interface';
 })
 export class CountryService {
 
-  private url: string = `https://restcountries.eu/rest/v2`;
+  private readonly url: string = `https://restcountries.eu/rest/v2`;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -27,6 +27,16 @@ export class CountryService {
       .pipe(
         this.convertCountriesArrayToSingleCountry()
       );
+  }
+
+  public getCountryCode(codes: string[]): Observable<Country> {
+    if (!codes.length) {
+      return;
+    }
+
+    const url: string = `${this.url}/alpha?codes=${codes.join(';')}`;
+
+    return this.httpClient.get<Country>(url);
   }
 
   private convertCountriesArrayToSingleCountry(): OperatorFunction<Country[], Country> {
