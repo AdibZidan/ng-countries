@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, OperatorFunction } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Country } from '../../interfaces/country.interface';
 
 @Injectable({
@@ -8,18 +9,28 @@ import { Country } from '../../interfaces/country.interface';
 })
 export class CountryService {
 
+  private url: string = `https://restcountries.eu/rest/v2`;
+
   constructor(private httpClient: HttpClient) { }
 
   public getAllCountries(): Observable<Country[]> {
-    const url: string = 'https://restcountries.eu/rest/v2/all';
+    const url: string = `${this.url}/all`;
 
     return this.httpClient.get<Country[]>(url);
   }
 
   public getCountry(name: string): Observable<Country> {
-    const url: string = `https://restcountries.eu/rest/v2/name/${name}`;
+    const url: string = `${this.url}/name/${name}`;
 
-    return this.httpClient.get<Country>(url);
+    return this.httpClient
+      .get<Country[]>(url)
+      .pipe(
+        this.convertCountriesArrayToSingleCountry()
+      );
+  }
+
+  private convertCountriesArrayToSingleCountry(): OperatorFunction<Country[], Country> {
+    return map((countries: Country[]): Country => countries[0]);
   }
 
 }
