@@ -16,6 +16,9 @@ export class CountriesComponent implements OnInit {
 
   public countries$: Observable<Country[]>;
 
+  public numberOfShownCountries: number = 25;
+  public isShown: boolean = true;
+
   constructor(
     private countryService: CountryService,
     private themeService: ThemeService
@@ -24,6 +27,17 @@ export class CountriesComponent implements OnInit {
   public ngOnInit(): void {
     this.getCountries();
     this.getMode();
+  }
+
+  public onShowMoreClick(): void {
+    const totalNumberOfCountries: number = 250;
+
+    this.numberOfShownCountries += 25;
+
+    if (this.numberOfShownCountries >= totalNumberOfCountries) {
+      this.isShown = false;
+      this.numberOfShownCountries = totalNumberOfCountries;
+    }
   }
 
   private getCountries(): Observable<Country[]> {

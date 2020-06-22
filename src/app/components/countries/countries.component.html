@@ -1,8 +1,16 @@
 <ng-container *ngIf="countries$ | async as countries">
   <article>
-    <app-country
-      *ngFor="let country of countries"
-      [country]="country">
-    </app-country>
+    <ng-container *ngFor="let country of countries; let index = index">
+      <app-country
+        *ngIf="index < numberOfShownCountries"
+        [country]="country">
+      </app-country>
+    </ng-container>
+
+    <ng-container *ngIf="isShown">
+      <button (click)="onShowMoreClick()">
+        Show More
+      </button>
+    </ng-container>
   </article>
 </ng-container>

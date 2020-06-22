@@ -36,6 +36,16 @@ describe('Countries Component', () => {
         .toBeUndefined();
     });
 
+    it('Should have an initial numberOfShownCountries property with the value of 25 before initialization', () => {
+      expect(component.numberOfShownCountries)
+        .toEqual(25);
+    });
+
+    it('Should have an initial isShown property with the value of true before initialization', () => {
+      expect(component.isShown)
+        .toEqual(true);
+    });
+
     it('Should initialize properties after initialization', () => {
       component.ngOnInit();
 
@@ -48,4 +58,25 @@ describe('Countries Component', () => {
 
   });
 
+  it('Should show more countries', () => {
+    component.onShowMoreClick();
+
+    expect(component.numberOfShownCountries)
+      .toEqual(50);
+
+    setTotalNumerOfCountriesTo250(component);
+
+    component.onShowMoreClick();
+
+    expect(component.numberOfShownCountries)
+      .toEqual(250);
+
+    expect(component.isShown)
+      .toEqual(false);
+  });
+
 });
+
+function setTotalNumerOfCountriesTo250(countriesComponent: CountriesComponent): void {
+  countriesComponent.numberOfShownCountries = 250;
+}
