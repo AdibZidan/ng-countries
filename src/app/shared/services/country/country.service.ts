@@ -30,7 +30,7 @@ export class CountryService {
   }
 
   public getCountryCode(codes: string[]): Observable<Country> {
-    if (!codes.length) {
+    if (!codes || !codes.length) {
       return;
     }
 
