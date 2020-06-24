@@ -1,4 +1,6 @@
 <ng-container *ngIf="countries$ | async as countries">
+  <app-filter></app-filter>
+
   <article>
     <ng-container *ngFor="let country of countries; let index = index">
       <app-country

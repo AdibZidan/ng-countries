@@ -1,0 +1,26 @@
+<div class="filter-container">
+  <div class="input-container">
+    <i class="fa fa-search"></i>
+    <input
+      [class]="mode$ | async"
+      type="text" placeholder="Search for a country . . .">
+  </div>
+
+  <details>
+    <summary [class]="mode$ | async" (click)="onFilterRegionsClick()">
+      Filter by Region
+
+      <ng-container *ngIf="isVisible">
+        <div class="filtered-region-container">
+          <ng-container *ngFor="let filterRegion of filterRegions; first as first">
+            <div *ngIf="first" class="line"></div>
+
+            <p [class]="first ? 'first' : ''">
+              {{ filterRegion }}
+            </p>
+          </ng-container>
+        </div>
+      </ng-container>
+    </summary>
+  </details>
+</div>
