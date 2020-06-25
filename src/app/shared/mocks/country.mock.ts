@@ -18,7 +18,7 @@ export const syria: Country = {
   area: undefined,
   gini: undefined,
   timezones: undefined,
-  borders: undefined,
+  borders: ['IRQ', 'ISR', 'JOR', 'LBN', 'TUR'],
   nativeName: undefined,
   numericCode: undefined,
   currencies: undefined,

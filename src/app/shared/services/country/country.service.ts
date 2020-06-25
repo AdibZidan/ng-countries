@@ -29,14 +29,14 @@ export class CountryService {
       );
   }
 
-  public getCountryCode(codes: string[]): Observable<Country> {
+  public getCountryCode(codes: string[]): Observable<string[]> {
     if (!codes || !codes.length) {
       return;
     }
 
     const url: string = `${this.url}/alpha?codes=${codes.join(';')}`;
 
-    return this.httpClient.get<Country>(url);
+    return this.httpClient.get<string[]>(url);
   }
 
   private convertCountriesArrayToSingleCountry(): OperatorFunction<Country[], Country> {

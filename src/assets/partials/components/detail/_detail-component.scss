@@ -1,0 +1,86 @@
+@import "../../shared/button/button";
+
+@include button;
+
+@mixin detail-component {
+  .dark {
+    background-color: #2b3945;
+
+    a {
+      color: #fff;
+
+      transition: color 0.7s ease;
+
+      &:hover {
+        color: #eee;
+      }
+    }
+  }
+
+  .light {
+    background-color: #fff;
+
+    a {
+      display: block;
+
+      width: 100%;
+
+      color: #000;
+
+      transition: color 0.7s ease;
+
+      &:hover {
+        color: #8a8686;
+      }
+    }
+  }
+
+  article {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    figure {
+      margin-top: 40px;
+
+      width: 575px;
+
+      img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: contain;
+      }
+    }
+
+    .information-container {
+      display: flex;
+      flex-direction: column;
+
+      .country-container {
+        h2 {
+          margin-bottom: 25px;
+
+          font-size: 2rem;
+        }
+
+        p {
+          font-size: 1.2rem;
+
+          line-height: 200%;
+
+          &:last-child {
+            margin-bottom: 25px;
+          }
+        }
+      }
+
+      .border-countries-container {
+        p {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+}

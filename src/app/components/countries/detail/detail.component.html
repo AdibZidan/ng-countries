@@ -1,98 +1,102 @@
 <ng-container *ngIf="country$ | async as country">
   <ng-container *ngIf="country">
-    <button>
-      <a [routerLink]="'/'">
+    <button class="back-button" [class]="mode$ | async" [routerLink]="'/'">
+      <a>
         &larr; Back
       </a>
     </button>
 
     <article>
-      <img [src]="country.flag" [alt]="country.name" [title]="country.name">
+      <figure>
+        <img [src]="country.flag" [alt]="country.name" [title]="country.name">
+      </figure>
 
-      <div class="country-container">
-        <h2>
-          <strong>
-            {{ country.name }}
-          </strong>
-        </h2>
+      <div class="information-container">
+        <div class="country-container">
+          <h2>
+            <strong>
+              {{ country.name }}
+            </strong>
+          </h2>
 
-        <p>
-          <strong>
-            Native Name
-          </strong>: {{ country.nativeName }}
-        </p>
-
-        <p>
-          <strong>
-            Population
-          </strong>: {{ country.population | number: '1.0' }}
-        </p>
-
-        <p>
-          <strong>
-            Region
-          </strong>: {{ country.region }}
-        </p>
-
-        <p>
-          <strong>
-            Sub Region
-          </strong>: {{ country.subregion }}
-        </p>
-
-        <p>
-          <strong>
-            Capital
-          </strong>: {{ country.capital }}
-        </p>
-
-        <p>
-          <strong>
-            Top Level Domain
-          </strong>: {{ country.topLevelDomain }}
-        </p>
-
-        <p>
-          <strong>
-            Currencies
-          </strong>:
-
-          <ng-container *ngFor="let currency of country.currencies">
-            {{ currency.name }}
-          </ng-container>
-        </p>
-
-        <p>
-          <strong>
-            Languages
-          </strong>:
-
-          <ng-container *ngFor="let language of country.languages; let last = last">
-            {{ language.name }}
-            <ng-container *ngIf="!last">
-              ,
-            </ng-container>
-          </ng-container>
-        </p>
-      </div>
-
-      <ng-container *ngIf="borderCountry$ | async as borderCountry">
-        <div class="border-countries-container">
           <p>
             <strong>
-              Border Countries
+              Native Name
+            </strong>: {{ country.nativeName }}
+          </p>
+
+          <p>
+            <strong>
+              Population
+            </strong>: {{ country.population | number: '1.0' }}
+          </p>
+
+          <p>
+            <strong>
+              Region
+            </strong>: {{ country.region }}
+          </p>
+
+          <p>
+            <strong>
+              Sub Region
+            </strong>: {{ country.subregion }}
+          </p>
+
+          <p>
+            <strong>
+              Capital
+            </strong>: {{ country.capital }}
+          </p>
+
+          <p>
+            <strong>
+              Top Level Domain
+            </strong>: {{ country.topLevelDomain }}
+          </p>
+
+          <p>
+            <strong>
+              Currencies
             </strong>:
 
-            <ng-container *ngFor="let borderCountry of borderCountry">
-              <button (click)="getCountry()">
-                <a [routerLink]="'/' + borderCountry.name">
-                  {{ borderCountry.name }}
-                </a>
-              </button>
+            <ng-container *ngFor="let currency of country.currencies">
+              {{ currency.name }}
+            </ng-container>
+          </p>
+
+          <p>
+            <strong>
+              Languages
+            </strong>:
+
+            <ng-container *ngFor="let language of country.languages; last as last">
+              {{ language.name }}
+              <ng-container *ngIf="!last">
+                ,
+              </ng-container>
             </ng-container>
           </p>
         </div>
-      </ng-container>
+
+        <ng-container *ngIf="borderCountry$ | async as borderCountry">
+          <div class="border-countries-container">
+            <p>
+              <strong>
+                Border Countries
+              </strong>:
+
+              <ng-container *ngFor="let borderCountry of borderCountry">
+                <button class="border-countries-button truncate" [class]="mode$ | async" (click)="getCountry()">
+                  <a [routerLink]="'/' + borderCountry.name">
+                    {{ borderCountry.name }}
+                  </a>
+                </button>
+              </ng-container>
+            </p>
+          </div>
+        </ng-container>
+      </div>
     </article>
   </ng-container>
 </ng-container>
