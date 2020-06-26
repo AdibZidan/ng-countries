@@ -1,18 +1,23 @@
-<ng-container *ngIf="countries$ | async as countries">
-  <app-filter></app-filter>
+<app-filter
+  [searchFilter]="searchFilter"
+  (searchFilterEmitter)="onSearchChange($event)">
+</app-filter>
 
-  <article>
-    <ng-container *ngFor="let country of countries; let index = index">
-      <app-country
-        *ngIf="index < numberOfShownCountries"
-        [country]="country">
-      </app-country>
-    </ng-container>
+<article>
+  <ng-container
+    *ngFor="
+      let country of countries | filter: searchFilter;
+      let index = index;
+      trackBy : trackBy">
+    <app-country
+      *ngIf="index < numberOfShownCountries"
+      [country]="country">
+    </app-country>
+  </ng-container>
 
-    <ng-container *ngIf="isShown">
-      <button (click)="onShowMoreClick()">
-        Show More
-      </button>
-    </ng-container>
-  </article>
-</ng-container>
+  <ng-container *ngIf="isShown">
+    <button (click)="onShowMoreClick()">
+      Show More
+    </button>
+  </ng-container>
+</article>

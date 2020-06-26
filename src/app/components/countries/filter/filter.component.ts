@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Theme } from 'src/app/shared/enums/theme.enum';
-import { ThemeService } from 'src/app/shared/services/theme/theme.service';
+import { Theme } from '../../../shared/enums/theme.enum';
+import { ThemeService } from '../../../shared/services/theme/theme.service';
 
 @Component({
   selector: 'app-filter',
@@ -9,6 +9,12 @@ import { ThemeService } from 'src/app/shared/services/theme/theme.service';
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit {
+
+  @Input()
+  public searchFilter: string;
+
+  @Output()
+  public searchFilterEmitter: EventEmitter<string> = new EventEmitter();
 
   public mode$: Observable<Theme>;
 
@@ -35,6 +41,12 @@ export class FilterComponent implements OnInit {
 
   public onFilterRegionsClick(): void {
     this.isVisible = !this.isVisible;
+  }
+
+  public onSearchChange(searchValue: string): void {
+    this.searchFilter = searchValue;
+
+    this.searchFilterEmitter.emit(searchValue);
   }
 
   private getMode$(): Observable<Theme> {

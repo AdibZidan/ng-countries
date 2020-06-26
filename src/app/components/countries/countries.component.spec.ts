@@ -1,15 +1,28 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { Country } from '../../shared/interfaces/country.interface';
+import { getCountries, syria } from '../../shared/mocks/country.mock';
+import { FilterPipe } from '../../shared/pipes/filter.pipe';
+import { CountryService } from '../../shared/services/country/country.service';
 import { CountriesComponent } from './countries.component';
+import { FilterComponent } from './filter/filter.component';
 
 describe('Countries Component', () => {
 
   let component: CountriesComponent;
   let fixture: ComponentFixture<CountriesComponent>;
 
+  let countryService: CountryService;
+  let countries: Country[];
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CountriesComponent],
+      declarations: [
+        CountriesComponent,
+        FilterComponent,
+        FilterPipe
+      ],
       imports: [HttpClientTestingModule]
     }).compileComponents();
   }));
@@ -17,6 +30,9 @@ describe('Countries Component', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CountriesComponent);
     component = fixture.componentInstance;
+
+    countryService = TestBed.inject(CountryService);
+    countries = getCountries();
   });
 
   it('Should create', () => {
@@ -31,11 +47,6 @@ describe('Countries Component', () => {
         .toBeUndefined();
     });
 
-    it('Should have an undefined countries$ property before initialization', () => {
-      expect(component.countries$)
-        .toBeUndefined();
-    });
-
     it('Should have an initial numberOfShownCountries property with the value of 25 before initialization', () => {
       expect(component.numberOfShownCountries)
         .toEqual(25);
@@ -46,14 +57,32 @@ describe('Countries Component', () => {
         .toEqual(true);
     });
 
+    it('Should have an undefined searchFilter property before initialization', () => {
+      expect(component.searchFilter)
+        .toBeUndefined();
+    });
+
+    it('Should have an undefined countries property before initialization', () => {
+      expect(component.countries)
+        .toBeUndefined();
+    });
+
     it('Should initialize properties after initialization', () => {
+      spyOn(
+        countryService,
+        'getAllCountries'
+      ).and.returnValue(of(countries));
+
       component.ngOnInit();
 
-      expect(component.countries$)
+      expect(component.countries)
         .toBeDefined();
 
       expect(component.mode$)
         .toBeDefined();
+
+      expect(component.countries)
+        .toEqual(countries);
     });
 
   });
@@ -73,6 +102,18 @@ describe('Countries Component', () => {
 
     expect(component.isShown)
       .toEqual(false);
+  });
+
+  it('Should emit searchValue', () => {
+    component.onSearchChange('Austria');
+
+    expect(component.searchFilter)
+      .toEqual('Austria');
+  });
+
+  it('Should track by country name', () => {
+    expect(component.trackBy(syria))
+      .toEqual('Syria');
   });
 
 });

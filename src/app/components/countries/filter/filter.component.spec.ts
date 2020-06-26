@@ -24,6 +24,16 @@ describe('Filter Component', () => {
 
   describe('Filter Component properties', () => {
 
+    it('Should have an undefined searchFilter property before initialization', () => {
+      expect(component.searchFilter)
+        .toBeUndefined();
+    });
+
+    it('Should have defined searchFilterEmitter property before initialization', () => {
+      expect(component.searchFilterEmitter)
+        .toBeDefined();
+    });
+
     it('Should have an undefined mode$ property before initialization', () => {
       expect(component.mode$)
         .toBeUndefined();
@@ -74,6 +84,21 @@ describe('Filter Component', () => {
 
     expect(component.isVisible)
       .toEqual(false);
+  });
+
+  it('Should emit search changes', () => {
+    spyOn(
+      component.searchFilterEmitter,
+      'emit'
+    );
+
+    component.onSearchChange('United States of America');
+
+    expect(component.searchFilter)
+      .toEqual('United States of America');
+
+    expect(component.searchFilterEmitter.emit)
+      .toHaveBeenCalledWith('United States of America');
   });
 
 });

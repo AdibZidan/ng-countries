@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { CountryService } from 'src/app/shared/services/country/country.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Theme } from '../../shared/enums/theme.enum';
 import { Country } from '../../shared/interfaces/country.interface';
+import { CountryService } from '../../shared/services/country/country.service';
 import { ThemeService } from '../../shared/services/theme/theme.service';
 
 @Component({
@@ -10,14 +10,16 @@ import { ThemeService } from '../../shared/services/theme/theme.service';
   templateUrl: './countries.component.html',
   styleUrls: ['./countries.component.scss']
 })
-export class CountriesComponent implements OnInit {
+export class CountriesComponent implements OnInit, OnDestroy {
+
+  private subscription: Subscription = new Subscription();
 
   public mode$: Observable<Theme>;
 
-  public countries$: Observable<Country[]>;
-
   public numberOfShownCountries: number = 25;
   public isShown: boolean = true;
+  public searchFilter: string;
+  public countries: Country[];
 
   constructor(
     private countryService: CountryService,
@@ -27,6 +29,10 @@ export class CountriesComponent implements OnInit {
   public ngOnInit(): void {
     this.getCountries();
     this.getMode();
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   public onShowMoreClick(): void {
@@ -40,8 +46,21 @@ export class CountriesComponent implements OnInit {
     }
   }
 
-  private getCountries(): Observable<Country[]> {
-    return this.countries$ = this.countryService.getAllCountries();
+  public onSearchChange(searchValue: string): void {
+    this.searchFilter = searchValue;
+  }
+
+  public trackBy(country: Country): string {
+    return country.name;
+  }
+
+  private getCountries(): void {
+    this.subscription = this.countryService
+      .getAllCountries()
+      .subscribe(
+        (countries: Country[]): Country[] =>
+          this.countries = countries
+      );
   }
 
   private getMode(): Observable<Theme> {

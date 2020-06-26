@@ -2,8 +2,10 @@
   <div class="input-container">
     <i class="fa fa-search"></i>
     <input
+      (input)="onSearchChange($event.target.value)"
       [class]="mode$ | async"
-      type="text" placeholder="Search for a country . . .">
+      type="text"
+      placeholder="Search for a country . . .">
   </div>
 
   <details>
