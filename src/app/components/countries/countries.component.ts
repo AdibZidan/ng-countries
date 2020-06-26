@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 import { Theme } from '../../shared/enums/theme.enum';
 import { Country } from '../../shared/interfaces/country.interface';
 import { CountryService } from '../../shared/services/country/country.service';
@@ -13,6 +14,7 @@ import { ThemeService } from '../../shared/services/theme/theme.service';
 export class CountriesComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
+  private CACHE_KEY: string = 'countries_cache';
 
   public mode$: Observable<Theme>;
 
@@ -60,12 +62,30 @@ export class CountriesComponent implements OnInit, OnDestroy {
   }
 
   private getCountries(): void {
+    this.prepareCache(this.CACHE_KEY);
+
+    this.tryCaching();
+  }
+
+  private prepareCache(CACHE_KEY: string): void {
     this.subscription = this.countryService
       .getAllCountries()
       .subscribe(
-        (countries: Country[]): Country[] =>
-          this.countries = countries
+        (countries: Country[]): string =>
+          localStorage[CACHE_KEY] = JSON.stringify(countries)
       );
+  }
+
+  private tryCaching(): void {
+    this.subscription = this.countryService
+      .getAllCountries()
+      .pipe(
+        startWith(
+          JSON.parse(localStorage[this.CACHE_KEY] || '[]')
+        )).subscribe(
+          (countries: Country[]): Country[] =>
+            this.countries = countries
+        );
   }
 
   private getMode(): Observable<Theme> {
