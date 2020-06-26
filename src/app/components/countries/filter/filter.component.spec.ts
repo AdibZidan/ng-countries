@@ -29,8 +29,18 @@ describe('Filter Component', () => {
         .toBeUndefined();
     });
 
+    it('Should have an undefined regionFilter property before initialization', () => {
+      expect(component.regionFilter)
+        .toBeUndefined();
+    });
+
     it('Should have defined searchFilterEmitter property before initialization', () => {
       expect(component.searchFilterEmitter)
+        .toBeDefined();
+    });
+
+    it('Should have defined regionFilterEmitter property before initialization', () => {
+      expect(component.regionFilterEmitter)
         .toBeDefined();
     });
 
@@ -99,6 +109,21 @@ describe('Filter Component', () => {
 
     expect(component.searchFilterEmitter.emit)
       .toHaveBeenCalledWith('United States of America');
+  });
+
+  it('Should emit click changes', () => {
+    spyOn(
+      component.regionFilterEmitter,
+      'emit'
+    );
+
+    component.onRegionClick('Asia');
+
+    expect(component.regionFilter)
+      .toEqual('Asia');
+
+    expect(component.regionFilterEmitter.emit)
+      .toHaveBeenCalledWith('Asia');
   });
 
 });

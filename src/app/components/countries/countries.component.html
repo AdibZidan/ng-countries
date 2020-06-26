@@ -1,13 +1,15 @@
 <app-filter
   [searchFilter]="searchFilter"
-  (searchFilterEmitter)="onSearchChange($event)">
+  [regionFilter]="regionFilter"
+  (searchFilterEmitter)="onSearchChange($event)"
+  (regionFilterEmitter)="onRegionClick($event)">
 </app-filter>
 
 <article>
   <ng-container
     *ngFor="
-      let country of countries | filter: searchFilter;
-      let index = index;
+      let country of countries | filter: searchFilter | click: regionFilter;
+      index as index;
       trackBy : trackBy">
     <app-country
       *ngIf="index < numberOfShownCountries"

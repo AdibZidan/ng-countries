@@ -17,7 +17,9 @@
           <ng-container *ngFor="let filterRegion of filterRegions; first as first">
             <div *ngIf="first" class="line"></div>
 
-            <p [class]="first ? 'first' : ''">
+            <p
+              (click)="onRegionClick(filterRegion)"
+              [class]="first ? 'first' : ''">
               {{ filterRegion }}
             </p>
           </ng-container>

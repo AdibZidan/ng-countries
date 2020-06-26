@@ -19,6 +19,7 @@ export class CountriesComponent implements OnInit, OnDestroy {
   public numberOfShownCountries: number = 25;
   public isShown: boolean = true;
   public searchFilter: string;
+  public regionFilter: string;
   public countries: Country[];
 
   constructor(
@@ -48,6 +49,10 @@ export class CountriesComponent implements OnInit, OnDestroy {
 
   public onSearchChange(searchValue: string): void {
     this.searchFilter = searchValue;
+  }
+
+  public onRegionClick(regionValue: string): void {
+    this.regionFilter = regionValue;
   }
 
   public trackBy(country: Country): string {

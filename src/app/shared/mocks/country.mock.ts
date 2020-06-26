@@ -10,7 +10,7 @@ export const syria: Country = {
   callingCodes: undefined,
   capital: undefined,
   altSpellings: undefined,
-  region: undefined,
+  region: 'Asia',
   subregion: undefined,
   population: undefined,
   latlng: undefined,

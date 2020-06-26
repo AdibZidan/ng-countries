@@ -13,8 +13,14 @@ export class FilterComponent implements OnInit {
   @Input()
   public searchFilter: string;
 
+  @Input()
+  public regionFilter: string;
+
   @Output()
   public searchFilterEmitter: EventEmitter<string> = new EventEmitter();
+
+  @Output()
+  public regionFilterEmitter: EventEmitter<string> = new EventEmitter();
 
   public mode$: Observable<Theme>;
 
@@ -47,6 +53,12 @@ export class FilterComponent implements OnInit {
     this.searchFilter = searchValue;
 
     this.searchFilterEmitter.emit(searchValue);
+  }
+
+  public onRegionClick(regionValue: string): void {
+    this.regionFilter = regionValue;
+
+    this.regionFilterEmitter.emit(regionValue);
   }
 
   private getMode$(): Observable<Theme> {

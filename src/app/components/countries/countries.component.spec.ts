@@ -3,7 +3,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { Country } from '../../shared/interfaces/country.interface';
 import { getCountries, syria } from '../../shared/mocks/country.mock';
-import { FilterPipe } from '../../shared/pipes/filter.pipe';
+import { ClickPipe } from '../../shared/pipes/click/click.pipe';
+import { FilterPipe } from '../../shared/pipes/filter/filter.pipe';
 import { CountryService } from '../../shared/services/country/country.service';
 import { CountriesComponent } from './countries.component';
 import { FilterComponent } from './filter/filter.component';
@@ -21,7 +22,8 @@ describe('Countries Component', () => {
       declarations: [
         CountriesComponent,
         FilterComponent,
-        FilterPipe
+        FilterPipe,
+        ClickPipe
       ],
       imports: [HttpClientTestingModule]
     }).compileComponents();
@@ -59,6 +61,11 @@ describe('Countries Component', () => {
 
     it('Should have an undefined searchFilter property before initialization', () => {
       expect(component.searchFilter)
+        .toBeUndefined();
+    });
+
+    it('Should have an undefined regionFilter property before initialization', () => {
+      expect(component.regionFilter)
         .toBeUndefined();
     });
 
@@ -109,6 +116,13 @@ describe('Countries Component', () => {
 
     expect(component.searchFilter)
       .toEqual('Austria');
+  });
+
+  it('Should emit regionFilter', () => {
+    component.onSearchChange('Asia');
+
+    expect(component.searchFilter)
+      .toEqual('Asia');
   });
 
   it('Should track by country name', () => {
