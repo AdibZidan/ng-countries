@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Theme } from '../../../shared/enums/theme.enum';
+import { PropertyService } from '../../../shared/services/property/property.service';
 import { ThemeService } from '../../../shared/services/theme/theme.service';
 
 @Component({
@@ -27,7 +28,10 @@ export class FilterComponent implements OnInit {
   public isVisible: boolean = false;
   public filterRegions: string[];
 
-  constructor(private themeService: ThemeService) { }
+  constructor(
+    private themeService: ThemeService,
+    private propertyService: PropertyService
+  ) { }
 
   public ngOnInit(): void {
     this.getFilterRegions();
@@ -53,6 +57,12 @@ export class FilterComponent implements OnInit {
     this.searchFilter = searchValue;
 
     this.searchFilterEmitter.emit(searchValue);
+
+    this.propertyService.setIsVisibleStateTo(false);
+
+    if (!searchValue) {
+      this.propertyService.setIsVisibleStateTo(true);
+    }
   }
 
   public onRegionClick(regionValue: string): void {

@@ -1,10 +1,28 @@
+@import "../../shared/button/button";
+
 @mixin countries-component {
   .dark {
     background-color: #2b3945;
+
+    color: #fff;
+
+    transition: color 0.7s ease;
+
+    &:hover {
+      color: #eee;
+    }
   }
 
   .light {
     background-color: #fff;
+
+    color: #000;
+
+    transition: color 0.7s ease;
+
+    &:hover {
+      color: #8a8686;
+    }
   }
 
   article {
@@ -14,5 +32,12 @@
 
     max-width: 70%;
     margin: auto;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+
+    @include button;
   }
 }

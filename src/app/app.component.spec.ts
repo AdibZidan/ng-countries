@@ -1,20 +1,31 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { DetailComponent } from './components/countries/detail/detail.component';
 import { Theme } from './shared/enums/theme.enum';
 import { HeaderModule } from './shared/modules/header/header.module';
+import { PropertyService } from './shared/services/property/property.service';
 
 describe('Application Component', () => {
 
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
 
+  let router: Router;
+
+  let propertyService: PropertyService;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent],
       imports: [
         HeaderModule,
-        RouterTestingModule
+        HttpClientTestingModule,
+        RouterTestingModule.withRoutes(
+          [{ path: 'syria', component: DetailComponent }]
+        )
       ]
     }).compileComponents();
   }));
@@ -22,6 +33,10 @@ describe('Application Component', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
+
+    router = TestBed.inject(Router);
+
+    propertyService = TestBed.inject(PropertyService);
   });
 
   it('Should create the application', () => {
@@ -47,5 +62,25 @@ describe('Application Component', () => {
           expect(theme).toEqual('dark');
         });
   });
+
+  it('Should handle isVisible state on route change', fakeAsync(() => {
+    spyOn(
+      propertyService,
+      'setIsVisibleStateTo'
+    );
+
+    tick();
+
+    component.ngOnInit();
+
+    tick();
+
+    router.navigate(['/syria']);
+
+    tick();
+
+    expect(propertyService.setIsVisibleStateTo)
+      .toHaveBeenCalledWith(true);
+  }));
 
 });

@@ -6,20 +6,27 @@
 </app-filter>
 
 <article>
-  <ng-container
-    *ngFor="
-      let country of countries | filter: searchFilter | click: regionFilter;
+  <ng-container *ngFor="
+      let country of countries | 
+      filter: searchFilter | 
+      click: regionFilter;
       index as index;
       trackBy : trackBy">
+
     <app-country
       *ngIf="index < numberOfShownCountries"
       [country]="country">
     </app-country>
   </ng-container>
+</article>
 
-  <ng-container *ngIf="isShown">
-    <button (click)="onShowMoreClick()">
+<ng-container *ngIf="isVisibleState$ | async">
+  <div class="button-container">
+    <button
+      [class]="mode$ | async"
+      class="show-more-button"
+      (click)="onShowMoreClick()">
       Show More
     </button>
-  </ng-container>
-</article>
+  </div>
+</ng-container>

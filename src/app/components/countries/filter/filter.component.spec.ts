@@ -1,10 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { PropertyService } from '../../../shared/services/property/property.service';
 import { FilterComponent } from './filter.component';
 
 describe('Filter Component', () => {
 
   let component: FilterComponent;
   let fixture: ComponentFixture<FilterComponent>;
+
+  let propertyService: PropertyService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -15,6 +18,8 @@ describe('Filter Component', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FilterComponent);
     component = fixture.componentInstance;
+
+    propertyService = TestBed.inject(PropertyService);
   });
 
   it('Should create', () => {
@@ -102,6 +107,11 @@ describe('Filter Component', () => {
       'emit'
     );
 
+    spyOn(
+      propertyService,
+      'setIsVisibleStateTo'
+    );
+
     component.onSearchChange('United States of America');
 
     expect(component.searchFilter)
@@ -109,6 +119,21 @@ describe('Filter Component', () => {
 
     expect(component.searchFilterEmitter.emit)
       .toHaveBeenCalledWith('United States of America');
+
+    expect(propertyService.setIsVisibleStateTo)
+      .toHaveBeenCalledWith(false);
+  });
+
+  it('Should show more button when the search field is empty', () => {
+    spyOn(
+      propertyService,
+      'setIsVisibleStateTo'
+    );
+
+    component.onSearchChange('');
+
+    expect(propertyService.setIsVisibleStateTo)
+      .toHaveBeenCalledWith(true);
   });
 
   it('Should emit click changes', () => {

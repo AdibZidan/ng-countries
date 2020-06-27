@@ -4,6 +4,7 @@ import { startWith } from 'rxjs/operators';
 import { Theme } from '../../shared/enums/theme.enum';
 import { Country } from '../../shared/interfaces/country.interface';
 import { CountryService } from '../../shared/services/country/country.service';
+import { PropertyService } from '../../shared/services/property/property.service';
 import { ThemeService } from '../../shared/services/theme/theme.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class CountriesComponent implements OnInit, OnDestroy {
   private CACHE_KEY: string = 'countries_cache';
 
   public mode$: Observable<Theme>;
+  public isVisibleState$: Observable<boolean>;
 
   public numberOfShownCountries: number = 25;
   public isShown: boolean = true;
@@ -26,12 +28,14 @@ export class CountriesComponent implements OnInit, OnDestroy {
 
   constructor(
     private countryService: CountryService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private propertyService: PropertyService
   ) { }
 
   public ngOnInit(): void {
     this.getCountries();
     this.getMode();
+    this.getIsVisibleState();
   }
 
   public ngOnDestroy(): void {
@@ -90,6 +94,10 @@ export class CountriesComponent implements OnInit, OnDestroy {
 
   private getMode(): Observable<Theme> {
     return this.mode$ = this.themeService.mode$;
+  }
+
+  private getIsVisibleState(): Observable<boolean> {
+    return this.isVisibleState$ = this.propertyService.isVisibleState$;
   }
 
 }
