@@ -1,0 +1,5 @@
+@import "../../components/countries/mobile";
+
+@mixin countries-component-query {
+  @include mobile;
+}

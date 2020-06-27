@@ -1,0 +1,49 @@
+@mixin mobile {
+  @media (min-width: 320px) and (max-width: 480px) {
+    article {
+      flex-direction: column;
+
+      figure {
+        width: 300px;
+      }
+
+      .information-container {
+        strong {
+          font-weight: normal;
+        }
+
+        .country-container {
+          width: 100%;
+
+          padding: 10px;
+
+          h2 {
+            margin: 25px 0;
+
+            font-size: 1.8rem;
+          }
+
+          p {
+            font-size: 1.1rem;
+          }
+        }
+
+        .border-countries-container {
+          max-width: 95%;
+
+          .border-countries {
+            font-size: 1.4rem;
+
+            margin-bottom: 15px;
+          }
+
+          p {
+            justify-content: center;
+            flex-direction: row;
+            flex-wrap: wrap;
+          }
+        }
+      }
+    }
+  }
+}

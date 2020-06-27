@@ -1,0 +1,5 @@
+@import "../../components/detail/mobile";
+
+@mixin detail-component-query {
+  @include mobile;
+}

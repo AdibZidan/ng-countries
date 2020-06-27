@@ -81,13 +81,18 @@
 
         <ng-container *ngIf="borderCountry$ | async as borderCountry">
           <div class="border-countries-container">
-            <p>
+            <p class="border-countries">
               <strong>
                 Border Countries
               </strong>:
+            </p>
 
+            <p>
               <ng-container *ngFor="let borderCountry of borderCountry">
-                <button class="border-countries-button truncate" [class]="mode$ | async" (click)="getCountry()">
+                <button
+                  class="border-countries-button truncate"
+                  [class]="mode$ | async"
+                  (click)="getCountry()">
                   <a [routerLink]="'/' + borderCountry.name">
                     {{ borderCountry.name }}
                   </a>

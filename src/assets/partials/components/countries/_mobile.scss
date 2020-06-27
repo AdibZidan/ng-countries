@@ -1,0 +1,7 @@
+@mixin mobile {
+  @media (min-width: 320px) and (max-width: 480px) {
+    article {
+      max-width: 95%;
+    }
+  }
+}

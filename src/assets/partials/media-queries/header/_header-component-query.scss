@@ -1,0 +1,5 @@
+@import "../../components/header/mobile";
+
+@mixin header-component-query {
+  @include mobile;
+}

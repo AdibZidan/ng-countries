@@ -1,0 +1,5 @@
+@import "../../components/filter/mobile";
+
+@mixin filter-component-query {
+  @include mobile;
+}

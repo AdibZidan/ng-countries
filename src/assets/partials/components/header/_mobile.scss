@@ -1,0 +1,23 @@
+@mixin mobile {
+  @media (min-width: 320px) and (max-width: 480px) {
+    header {
+      height: 100px;
+
+      nav {
+        margin: 6px;
+
+        h2 {
+          a {
+            font-size: 1.2rem;
+          }
+        }
+
+        span {
+          width: 90px;
+
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}

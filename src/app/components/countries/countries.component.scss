@@ -1,3 +1,5 @@
 @import "../../../assets/partials/components/countries/countries-component";
+@import "../../../assets/partials/media-queries/countries/countries-component-query";
 
 @include countries-component;
+@include countries-component-query;
