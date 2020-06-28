@@ -49,11 +49,13 @@
             </strong>: {{ country.capital }}
           </p>
 
-          <p>
-            <strong>
-              Top Level Domain
-            </strong>: {{ country.topLevelDomain }}
-          </p>
+          <ng-container *ngIf="country.topLevelDomain.length > 0">
+            <p>
+              <strong>
+                Top Level Domain
+              </strong>: {{ country.topLevelDomain }}
+            </p>
+          </ng-container>
 
           <p>
             <strong>
