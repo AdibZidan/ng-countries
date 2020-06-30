@@ -1,13 +1,15 @@
-@mixin mobile {
-  @media (min-width: 320px) and (max-width: 480px) {
+@mixin tablet {
+  @media (min-width: 768px) and (max-width: 1024px) {
     article {
       flex-direction: column;
 
       figure {
-        width: 300px;
+        width: 500px;
       }
 
       .information-container {
+        width: 600px;
+
         strong {
           font-weight: normal;
         }
@@ -29,7 +31,9 @@
         }
 
         .border-countries-container {
-          max-width: 95%;
+          max-width: 65%;
+
+          margin: auto;
 
           .border-countries {
             font-size: 1.4rem;
@@ -39,7 +43,6 @@
 
           p {
             justify-content: center;
-
             flex-direction: row;
             flex-wrap: wrap;
 

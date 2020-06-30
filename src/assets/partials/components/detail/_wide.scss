@@ -1,13 +1,13 @@
-@mixin mobile {
-  @media (min-width: 320px) and (max-width: 480px) {
+@mixin wide {
+  @media (min-width: 1281px) {
     article {
-      flex-direction: column;
-
       figure {
-        width: 300px;
+        width: 600px;
       }
 
       .information-container {
+        width: 500px;
+
         strong {
           font-weight: normal;
         }
@@ -20,7 +20,7 @@
           h2 {
             margin: 25px 0;
 
-            font-size: 1.8rem;
+            font-size: 2rem;
           }
 
           p {
@@ -29,10 +29,12 @@
         }
 
         .border-countries-container {
-          max-width: 95%;
+          max-width: 85%;
+
+          margin: auto;
 
           .border-countries {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
 
             margin-bottom: 15px;
           }
@@ -43,9 +45,9 @@
             flex-direction: row;
             flex-wrap: wrap;
 
-            &:last-child {
-              margin-bottom: 25px;
-            }
+            margin: auto;
+
+            width: auto;
           }
         }
       }
