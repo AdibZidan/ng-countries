@@ -1,11 +1,11 @@
 @import "../../components/detail/wide";
-@import "../../components/detail/tablet";
+@import "../../components/detail/tablet-and-desktop";
 @import "../../components/detail/mobile";
 @import "../../components/detail/mobile-tablet-landscape";
 
 @mixin detail-component-query {
   @include wide;
-  @include tablet;
+  @include tablet-and-desktop;
   @include mobile;
   @include mobile-tablet-landscape;
 }
