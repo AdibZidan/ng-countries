@@ -3,7 +3,6 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { DetailComponent } from './components/countries/detail/detail.component';
 import { Theme } from './shared/enums/theme.enum';
 import { HeaderModule } from './shared/modules/header/header.module';
 import { PropertyService } from './shared/services/property/property.service';
@@ -23,9 +22,7 @@ describe('Application Component', () => {
       imports: [
         HeaderModule,
         HttpClientTestingModule,
-        RouterTestingModule.withRoutes(
-          [{ path: 'syria', component: DetailComponent }]
-        )
+        RouterTestingModule
       ]
     }).compileComponents();
   }));
@@ -69,13 +66,9 @@ describe('Application Component', () => {
       'setIsVisibleStateTo'
     );
 
-    tick();
-
     component.ngOnInit();
 
-    tick();
-
-    router.navigate(['/syria']);
+    router.navigate(['/']);
 
     tick();
 
