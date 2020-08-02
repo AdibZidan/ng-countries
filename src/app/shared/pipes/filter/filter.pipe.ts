@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Country } from '../../interfaces/country.interface';
+import { Country } from '@shared/interfaces/country.interface';
 
 @Pipe({
   name: 'filter'

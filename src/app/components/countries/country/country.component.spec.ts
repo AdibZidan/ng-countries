@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { syria } from '../../../shared/mocks/country.mock';
+import { syria } from '@shared/mocks/country.mock';
 import { CountryComponent } from './country.component';
 
 describe('Country Component', () => {

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Theme } from '@shared/enums/theme.enum';
+import { PropertyService } from '@shared/services/property/property.service';
+import { ThemeService } from '@shared/services/theme/theme.service';
 import { Observable } from 'rxjs';
-import { Theme } from '../../../shared/enums/theme.enum';
-import { PropertyService } from '../../../shared/services/property/property.service';
-import { ThemeService } from '../../../shared/services/theme/theme.service';
 
 @Component({
   selector: 'app-filter',

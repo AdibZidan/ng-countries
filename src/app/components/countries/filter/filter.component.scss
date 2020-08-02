@@ -1,5 +1,5 @@
-@import "../../../../assets/partials/components/filter/filter-component";
-@import "../../../../assets/partials/media-queries/filter/filter-component-query";
+@import "components/filter/filter-component";
+@import "media-queries/filter/filter-component-query";
 
 @include filter-component;
 @include filter-component-query;

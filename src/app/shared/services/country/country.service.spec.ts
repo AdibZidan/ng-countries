@@ -1,8 +1,8 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { async, TestBed } from '@angular/core/testing';
+import { Country } from '@shared/interfaces/country.interface';
+import { getCountries, syria } from '@shared/mocks/country.mock';
 import { of } from 'rxjs';
-import { Country } from '../../interfaces/country.interface';
-import { getCountries, syria } from '../../mocks/country.mock';
 import { CountryService } from './country.service';
 
 describe('Country Service', () => {

@@ -1,4 +1,4 @@
-@import "../../components/filter/mobile";
+@import "components/filter/mobile";
 
 @mixin filter-component-query {
   @include mobile;

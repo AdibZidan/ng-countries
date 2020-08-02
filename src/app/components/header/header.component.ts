@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Theme } from '@shared/enums/theme.enum';
+import { ThemeService } from '@shared/services/theme/theme.service';
 import { Observable } from 'rxjs';
-import { Theme } from '../../shared/enums/theme.enum';
-import { ThemeService } from '../../shared/services/theme/theme.service';
 
 @Component({
   selector: 'app-header',

@@ -2,10 +2,10 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Country } from '@shared/interfaces/country.interface';
+import { syria } from '@shared/mocks/country.mock';
+import { CountryService } from '@shared/services/country/country.service';
 import { of } from 'rxjs';
-import { Country } from '../../../shared/interfaces/country.interface';
-import { syria } from '../../../shared/mocks/country.mock';
-import { CountryService } from '../../../shared/services/country/country.service';
 import { DetailComponent } from './detail.component';
 
 describe('Detail Component', () => {

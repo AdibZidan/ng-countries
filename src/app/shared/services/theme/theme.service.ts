@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Theme } from '@shared/enums/theme.enum';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Theme } from '../../enums/theme.enum';
 
 @Injectable({
   providedIn: 'root'

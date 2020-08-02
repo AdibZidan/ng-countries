@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Theme } from '../../enums/theme.enum';
+import { Theme } from '@shared/enums/theme.enum';
 import { ThemeService } from './theme.service';
 
 describe('Theme Service', () => {

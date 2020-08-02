@@ -1,4 +1,4 @@
-import { Country } from '../interfaces/country.interface';
+import { Country } from '@shared/interfaces/country.interface';
 
 export const getCountries = (): Country[] => [syria, ukraine, austria];
 

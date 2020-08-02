@@ -31,7 +31,11 @@
               "./node_modules/font-awesome/scss/font-awesome.scss",
               "src/styles.scss"
             ],
-            "scripts": []
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets/partials/"
+              ]
+            }
           },
           "configurations": {
             "production": {
@@ -95,7 +99,11 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets/partials/"
+              ]
+            }
           }
         },
         "lint": {

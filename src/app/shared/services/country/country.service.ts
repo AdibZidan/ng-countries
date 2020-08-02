@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Country } from '@shared/interfaces/country.interface';
 import { Observable, OperatorFunction } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Country } from '../../interfaces/country.interface';
 
 @Injectable({
   providedIn: 'root'

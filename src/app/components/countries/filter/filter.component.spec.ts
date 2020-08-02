@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { PropertyService } from '../../../shared/services/property/property.service';
+import { PropertyService } from '@shared/services/property/property.service';
 import { FilterComponent } from './filter.component';
 
 describe('Filter Component', () => {

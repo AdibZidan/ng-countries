@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { AppComponent } from '../../../app.component';
+import { AppComponent } from './app.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { HeaderModule } from '../header/header.module';
-import { CountriesModule } from '../countries/countries.module';
+import { HeaderModule } from './components/header/header.module';
+import { CountriesModule } from './components/countries/countries.module';
 
 @NgModule({
   declarations: [AppComponent],

@@ -3,8 +3,8 @@ import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { HeaderModule } from './components/header/header.module';
 import { Theme } from './shared/enums/theme.enum';
-import { HeaderModule } from './shared/modules/header/header.module';
 import { PropertyService } from './shared/services/property/property.service';
 
 describe('Application Component', () => {

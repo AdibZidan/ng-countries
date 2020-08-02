@@ -1,11 +1,11 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Country } from '@shared/interfaces/country.interface';
+import { getCountries, syria } from '@shared/mocks/country.mock';
+import { ClickPipe } from '@shared/pipes/click/click.pipe';
+import { FilterPipe } from '@shared/pipes/filter/filter.pipe';
+import { CountryService } from '@shared/services/country/country.service';
 import { of } from 'rxjs';
-import { Country } from '../../shared/interfaces/country.interface';
-import { getCountries, syria } from '../../shared/mocks/country.mock';
-import { ClickPipe } from '../../shared/pipes/click/click.pipe';
-import { FilterPipe } from '../../shared/pipes/filter/filter.pipe';
-import { CountryService } from '../../shared/services/country/country.service';
 import { CountriesComponent } from './countries.component';
 import { FilterComponent } from './filter/filter.component';
 

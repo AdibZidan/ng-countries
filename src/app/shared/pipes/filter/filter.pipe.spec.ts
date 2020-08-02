@@ -1,6 +1,6 @@
 import { async, TestBed } from '@angular/core/testing';
-import { Country } from '../../interfaces/country.interface';
-import { getCountries } from '../../mocks/country.mock';
+import { Country } from '@shared/interfaces/country.interface';
+import { getCountries } from '@shared/mocks/country.mock';
 import { FilterPipe } from './filter.pipe';
 
 describe('Filter Pipe', () => {

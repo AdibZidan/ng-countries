@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-import { Theme } from '../../shared/enums/theme.enum';
-import { Country } from '../../shared/interfaces/country.interface';
-import { CountryService } from '../../shared/services/country/country.service';
-import { PropertyService } from '../../shared/services/property/property.service';
-import { ThemeService } from '../../shared/services/theme/theme.service';
+import { Theme } from '@shared/enums/theme.enum';
+import { Country } from '@shared/interfaces/country.interface';
+import { CountryService } from '@shared/services/country/country.service';
+import { PropertyService } from '@shared/services/property/property.service';
+import { ThemeService } from '@shared/services/theme/theme.service';
 
 @Component({
   selector: 'app-countries',

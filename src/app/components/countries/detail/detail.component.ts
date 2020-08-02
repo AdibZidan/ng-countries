@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Theme } from '@shared/enums/theme.enum';
+import { Country } from '@shared/interfaces/country.interface';
+import { CountryService } from '@shared/services/country/country.service';
+import { ThemeService } from '@shared/services/theme/theme.service';
 import { Observable, of, OperatorFunction } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { Theme } from '../../../shared/enums/theme.enum';
-import { Country } from '../../../shared/interfaces/country.interface';
-import { CountryService } from '../../../shared/services/country/country.service';
-import { ThemeService } from '../../../shared/services/theme/theme.service';
 
 @Component({
   selector: 'app-detail',
