@@ -1,31 +1,21 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { async, TestBed } from '@angular/core/testing';
 import { Country } from '@shared/interfaces/country.interface';
+import { HttpClientSpy } from '@shared/interfaces/http-client-spy.interface';
 import { getCountries, syria } from '@shared/mocks/country.mock';
+import { getHttpClientSpy } from '@shared/mocks/http-client-spy.mock';
 import { of } from 'rxjs';
 import { CountryService } from './country.service';
 
 describe('Country Service', () => {
 
+  let httpClientSpy: HttpClientSpy;
   let countryService: CountryService;
-  let httpTestingController: HttpTestingController;
-
   let countriesMock: Country[];
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
-    });
-  }));
-
   beforeEach(() => {
-    countryService = TestBed.inject(CountryService);
-    httpTestingController = TestBed.inject(HttpTestingController);
-
+    httpClientSpy = getHttpClientSpy();
+    countryService = new CountryService(httpClientSpy as any);
     countriesMock = getCountries();
   });
-
-  afterEach(() => httpTestingController.verify());
 
   it('Should be created', () => {
     expect(countryService)
@@ -33,10 +23,7 @@ describe('Country Service', () => {
   });
 
   it('Should get all countries', () => {
-    spyOn(
-      countryService,
-      'getAllCountries'
-    ).and.returnValue(
+    httpClientSpy.get.and.returnValue(
       of(countriesMock)
     );
 
@@ -50,13 +37,15 @@ describe('Country Service', () => {
           expect(actualCountryNames.length).toEqual(3);
           expect(actualCountryNames).toEqual(expectedCountryNames);
         });
+
+    expect(
+      httpClientSpy.get.calls.count()
+    ).toEqual(1);
   });
 
   it('Should get a specific country', () => {
-    spyOn(
-      countryService, 'getCountry'
-    ).and.returnValue(
-      of(syria)
+    httpClientSpy.get.and.returnValue(
+      of([syria])
     );
 
     countryService
@@ -66,6 +55,10 @@ describe('Country Service', () => {
           expect(country).toEqual(syria);
           expect(country.name).toEqual('Syria');
         });
+
+    expect(
+      httpClientSpy.get.calls.count()
+    ).toEqual(1);
   });
 
 });

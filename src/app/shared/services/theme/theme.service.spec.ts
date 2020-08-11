@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Theme } from '@shared/enums/theme.enum';
+import { take } from 'rxjs/operators';
 import { ThemeService } from './theme.service';
 
 describe('Theme Service', () => {
@@ -30,9 +31,21 @@ describe('Theme Service', () => {
 
     themeService
       .mode$
+      .pipe(take(1))
       .subscribe(
         (theme: Theme): void => {
           expect(theme).toEqual('light');
+        }
+      );
+
+    themeService.toggleTheme();
+
+    themeService
+      .mode$
+      .pipe(take(1))
+      .subscribe(
+        (theme: Theme): void => {
+          expect(theme).toEqual('dark');
         }
       );
   });

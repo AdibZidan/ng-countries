@@ -78,9 +78,14 @@ describe('Countries Component', () => {
       spyOn(
         countryService,
         'getAllCountries'
-      ).and.returnValue(of(countries));
+      ).and.returnValue(
+        of(countries)
+      );
 
       component.ngOnInit();
+
+      expect(countryService.getAllCountries)
+        .toHaveBeenCalled();
 
       expect(component.countries)
         .toBeDefined();
@@ -116,6 +121,13 @@ describe('Countries Component', () => {
 
     expect(component.searchFilter)
       .toEqual('Austria');
+  });
+
+  it('Should emit regionClick', () => {
+    component.onRegionClick('Asia');
+
+    expect(component.regionFilter)
+      .toEqual('Asia');
   });
 
   it('Should emit regionFilter', () => {

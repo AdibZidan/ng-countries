@@ -1,4 +1,3 @@
-import { async, TestBed } from '@angular/core/testing';
 import { Country } from '@shared/interfaces/country.interface';
 import { getCountries } from '@shared/mocks/country.mock';
 import { ClickPipe } from './click.pipe';
@@ -6,21 +5,11 @@ import { ClickPipe } from './click.pipe';
 describe('Filter Pipe', () => {
 
   let pipe: ClickPipe;
-
   let countries: Country[];
-  let regionFilter: string;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [ClickPipe]
-    });
-  }));
 
   beforeEach(() => {
     pipe = new ClickPipe();
-
     countries = getCountries();
-    regionFilter = 'Asia';
   });
 
   it('Should create', () => {
@@ -28,16 +17,22 @@ describe('Filter Pipe', () => {
       .toBeTruthy();
   });
 
+  it('Should return the list of countries array if no filter keyword is given', () => {
+    expect(pipe.transform(countries, '')).toEqual(countries);
+  });
+
   it('Should filter countries', () => {
-    spyOn(
-      pipe,
-      'transform'
-    );
+    const ukraineAndAustria: Country[] = [countries[1], countries[2]];
 
-    pipe.transform(countries, regionFilter);
+    expect(
+      pipe.transform(countries, 'Eu')
+    ).toEqual(ukraineAndAustria);
+  });
 
-    expect(pipe.transform)
-      .toHaveBeenCalledWith(countries, 'Asia');
+  it('Should return an empty countries array if given a wrong filter keyword', () => {
+    expect(
+      pipe.transform(countries, '...')
+    ).toEqual([]);
   });
 
 });
