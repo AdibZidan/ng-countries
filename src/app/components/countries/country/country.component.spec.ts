@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { syria } from '@shared/mocks/country.mock';
 import { CountryComponent } from './country.component';
 
@@ -7,7 +7,7 @@ describe('Country Component', () => {
   let component: CountryComponent;
   let fixture: ComponentFixture<CountryComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [CountryComponent]
     }).compileComponents();
@@ -19,20 +19,21 @@ describe('Country Component', () => {
   });
 
   it('Should create', () => {
-    expect(component)
-      .toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
-  it('Should have an undefined country property before initialization', () => {
-    expect(component.country)
-      .toBeUndefined();
+  describe('Before initialization', () => {
+    it('Should have an undefined country property', () => {
+      expect(component.country).toBeUndefined();
+    });
   });
 
-  it('Should have a defined country property after initialization', () => {
-    component.country = syria;
+  describe('After initialization', () => {
+    it('Should have a defined country property', () => {
+      component.country = syria;
 
-    expect(component.country)
-      .toEqual(syria);
+      expect(component.country).toEqual(syria);
+    });
   });
 
 });

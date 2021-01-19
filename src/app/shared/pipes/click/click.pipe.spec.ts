@@ -13,8 +13,7 @@ describe('Filter Pipe', () => {
   });
 
   it('Should create', () => {
-    expect(pipe)
-      .toBeTruthy();
+    expect(pipe).toBeTruthy();
   });
 
   it('Should return the list of countries array if no filter keyword is given', () => {
@@ -24,15 +23,11 @@ describe('Filter Pipe', () => {
   it('Should filter countries', () => {
     const ukraineAndAustria: Country[] = [countries[1], countries[2]];
 
-    expect(
-      pipe.transform(countries, 'Eu')
-    ).toEqual(ukraineAndAustria);
+    expect(pipe.transform(countries, 'Eu')).toEqual(ukraineAndAustria);
   });
 
   it('Should return an empty countries array if given a wrong filter keyword', () => {
-    expect(
-      pipe.transform(countries, '...')
-    ).toEqual([]);
+    expect(pipe.transform(countries, '...')).toEqual([]);
   });
 
 });

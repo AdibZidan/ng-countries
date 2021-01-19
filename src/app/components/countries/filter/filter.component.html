@@ -1,6 +1,7 @@
 <div class="filter-container">
   <div class="input-container">
     <i class="fa fa-search"></i>
+
     <input
       (input)="onSearchChange($event.target.value)"
       [class]="mode$ | async"

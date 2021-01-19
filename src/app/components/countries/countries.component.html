@@ -13,10 +13,11 @@
       index as index;
       trackBy : trackBy">
 
-    <app-country
-      *ngIf="index < numberOfShownCountries"
-      [country]="country">
-    </app-country>
+      <ng-container *ngIf="index < numberOfShownCountries">
+        <app-country
+          [country]="country">
+        </app-country>
+      </ng-container>
   </ng-container>
 </article>
 

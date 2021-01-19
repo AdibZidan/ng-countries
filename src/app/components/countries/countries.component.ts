@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { startWith } from 'rxjs/operators';
 import { Theme } from '@shared/enums/theme.enum';
 import { Country } from '@shared/interfaces/country.interface';
 import { CountryService } from '@shared/services/country/country.service';
 import { PropertyService } from '@shared/services/property/property.service';
 import { ThemeService } from '@shared/services/theme/theme.service';
+import { Observable, Subscription } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-countries',
@@ -14,17 +14,17 @@ import { ThemeService } from '@shared/services/theme/theme.service';
 })
 export class CountriesComponent implements OnInit, OnDestroy {
 
-  private subscription: Subscription = new Subscription();
-  private CACHE_KEY: string = 'countries_cache';
+  private _subscriptions: Subscription[] = [];
+  private _CACHE_KEY: string = 'countries_cache';
 
-  public mode$: Observable<Theme>;
-  public isVisibleState$: Observable<boolean>;
+  public mode$!: Observable<Theme>;
+  public isVisibleState$!: Observable<boolean>;
 
   public numberOfShownCountries: number = 25;
   public isShown: boolean = true;
-  public searchFilter: string;
-  public regionFilter: string;
-  public countries: Country[];
+  public searchFilter: string = '';
+  public regionFilter: string = '';
+  public countries: Country[] = [];
 
   constructor(
     private countryService: CountryService,
@@ -39,7 +39,10 @@ export class CountriesComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this._subscriptions
+      .forEach((subscription: Subscription): void => {
+        subscription.unsubscribe();
+      });
   }
 
   public onShowMoreClick(): void {
@@ -66,30 +69,29 @@ export class CountriesComponent implements OnInit, OnDestroy {
   }
 
   private getCountries(): void {
-    this.prepareCache(this.CACHE_KEY);
-
+    this.prepareCache(this._CACHE_KEY);
     this.tryCaching();
   }
 
   private prepareCache(CACHE_KEY: string): void {
-    this.subscription = this.countryService
+    const subscription: Subscription = this.countryService
       .getAllCountries()
-      .subscribe(
-        (countries: Country[]): string =>
-          localStorage[CACHE_KEY] = JSON.stringify(countries)
+      .subscribe((countries: Country[]): string =>
+        localStorage[CACHE_KEY] = JSON.stringify(countries)
       );
+
+    this._subscriptions.push(subscription);
   }
 
   private tryCaching(): void {
-    this.subscription = this.countryService
+    const subscription: Subscription = this.countryService
       .getAllCountries()
-      .pipe(
-        startWith(
-          JSON.parse(localStorage[this.CACHE_KEY] || '[]')
-        )).subscribe(
-          (countries: Country[]): Country[] =>
-            this.countries = countries
-        );
+      .pipe(startWith(JSON.parse(localStorage[this._CACHE_KEY] || '[]')))
+      .subscribe((countries: Country[]): Country[] =>
+        this.countries = countries
+      );
+
+    this._subscriptions.push(subscription);
   }
 
   private getMode(): Observable<Theme> {

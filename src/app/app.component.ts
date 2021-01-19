@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { MonoTypeOperatorFunction, Observable, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { Theme } from './shared/enums/theme.enum';
 import { PropertyService } from './shared/services/property/property.service';
@@ -13,9 +13,9 @@ import { ThemeService } from './shared/services/theme/theme.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-  private subscription: Subscription = new Subscription();
+  private _subscription: Subscription = new Subscription();
 
-  public mode$: Observable<Theme>;
+  public mode$!: Observable<Theme>;
 
   constructor(
     private themeService: ThemeService,
@@ -25,12 +25,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.getMode();
-
     this.handleIsVisibleStateOnRouteChange();
   }
 
   public ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this._subscription.unsubscribe();
   }
 
   private getMode(): Observable<Theme> {
@@ -38,14 +37,16 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private handleIsVisibleStateOnRouteChange(): void {
-    this.subscription = this.router
+    this._subscription = this.router
       .events
-      .pipe(
-        filter(
-          (event: Event): boolean => event instanceof NavigationEnd))
+      .pipe(this.instanceOfNavigationEnd())
       .subscribe((): void =>
         this.propertyService.setIsVisibleStateTo(true)
       );
+  }
+
+  private instanceOfNavigationEnd(): MonoTypeOperatorFunction<Event> {
+    return filter((event: Event): boolean => event instanceof NavigationEnd);
   }
 
 }

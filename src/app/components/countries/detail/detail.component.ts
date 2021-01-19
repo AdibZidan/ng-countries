@@ -14,9 +14,9 @@ import { mergeMap } from 'rxjs/operators';
 })
 export class DetailComponent implements OnInit {
 
-  public mode$: Observable<Theme>;
-  public country$: Observable<Country>;
-  public borderCountry$: Observable<string[]>;
+  public mode$!: Observable<Theme>;
+  public country$!: Observable<Country>;
+  public borderCountry$!: Observable<string[]>;
 
   constructor(
     private themeService: ThemeService,
@@ -26,21 +26,24 @@ export class DetailComponent implements OnInit {
 
   public ngOnInit(): void {
     this.getCountry();
-
     this.getMode$();
   }
 
   public getCountry(): Observable<Country> {
-    const country: string = this.activatedRoute
-      .snapshot
-      .params
-      .country;
+    const country: string = this.getCountryFromParams();
 
     return this.country$ = this.countryService
       .getCountry(country)
       .pipe(
         this.mergeWithBorderCountries()
       );
+  }
+
+  private getCountryFromParams(): string {
+    return this.activatedRoute
+      .snapshot
+      .params
+      .country;
   }
 
   private mergeWithBorderCountries(): OperatorFunction<Country, Country> {

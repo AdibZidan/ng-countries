@@ -13,28 +13,21 @@ describe('Filter Pipe', () => {
   });
 
   it('Should create', () => {
-    expect(pipe)
-      .toBeTruthy();
+    expect(pipe).toBeTruthy();
   });
 
   it('Should return a list of countries array if given no search filter', () => {
-    expect(
-      pipe.transform(countries, '')
-    ).toEqual(countries);
+    expect(pipe.transform(countries, '')).toEqual(countries);
   });
 
   it('Should not return a list of countries if given an incorrect search filter value', () => {
-    expect(
-      pipe.transform(countries, '...')
-    ).toEqual([]);
+    expect(pipe.transform(countries, '...')).toEqual([]);
   });
 
   it('Should filter countries', () => {
     const syria: Country[] = [countries[0]];
 
-    expect(
-      pipe.transform(countries, 'Syria')
-    ).toEqual(syria);
+    expect(pipe.transform(countries, 'Syria')).toEqual(syria);
   });
 
 });

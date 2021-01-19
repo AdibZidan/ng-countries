@@ -12,10 +12,10 @@ import { Observable } from 'rxjs';
 export class FilterComponent implements OnInit {
 
   @Input()
-  public searchFilter: string;
+  public searchFilter: string = '';
 
   @Input()
-  public regionFilter: string;
+  public regionFilter: string = '';
 
   @Output()
   public searchFilterEmitter: EventEmitter<string> = new EventEmitter();
@@ -23,10 +23,9 @@ export class FilterComponent implements OnInit {
   @Output()
   public regionFilterEmitter: EventEmitter<string> = new EventEmitter();
 
-  public mode$: Observable<Theme>;
-
+  public mode$!: Observable<Theme>;
   public isVisible: boolean = false;
-  public filterRegions: string[];
+  public filterRegions: string[] = [];
 
   constructor(
     private themeService: ThemeService,
@@ -35,7 +34,6 @@ export class FilterComponent implements OnInit {
 
   public ngOnInit(): void {
     this.getFilterRegions();
-
     this.getMode$();
   }
 
@@ -55,9 +53,7 @@ export class FilterComponent implements OnInit {
 
   public onSearchChange(searchValue: string): void {
     this.searchFilter = searchValue;
-
     this.searchFilterEmitter.emit(searchValue);
-
     this.propertyService.setIsVisibleStateTo(false);
 
     if (!searchValue) {
@@ -67,7 +63,6 @@ export class FilterComponent implements OnInit {
 
   public onRegionClick(regionValue: string): void {
     this.regionFilter = regionValue;
-
     this.regionFilterEmitter.emit(regionValue);
   }
 

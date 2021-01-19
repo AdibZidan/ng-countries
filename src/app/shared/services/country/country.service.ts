@@ -9,18 +9,20 @@ import { map } from 'rxjs/operators';
 })
 export class CountryService {
 
-  private readonly url: string = `https://restcountries.eu/rest/v2`;
+  private readonly _url: string = 'https://restcountries.eu/rest/v2';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient
+  ) { }
 
   public getAllCountries(): Observable<Country[]> {
-    const url: string = `${this.url}/all`;
+    const url: string = `${this._url}/all`;
 
     return this.httpClient.get<Country[]>(url);
   }
 
   public getCountry(name: string): Observable<Country> {
-    const url: string = `${this.url}/name/${name}`;
+    const url: string = `${this._url}/name/${name}`;
 
     return this.httpClient
       .get<Country[]>(url)
@@ -34,7 +36,7 @@ export class CountryService {
       return;
     }
 
-    const url: string = `${this.url}/alpha?codes=${codes.join(';')}`;
+    const url: string = `${this._url}/alpha?codes=${codes.join(';')}`;
 
     return this.httpClient.get<string[]>(url);
   }

@@ -10,28 +10,23 @@ describe('Property Service', () => {
   });
 
   it('Should be created', () => {
-    expect(propertyService)
-      .toBeTruthy();
+    expect(propertyService).toBeTruthy();
   });
 
   it('Should have an initial isVisibleState$ property with the value of true', () => {
     propertyService.isVisibleState$
-      .subscribe(
-        (value: boolean): boolean =>
-          expect(value)
-            .toEqual(true)
-      );
+      .subscribe((value: boolean): void => {
+        expect(value).toEqual(true);
+      });
   });
 
   it('Should dynamically change state', () => {
     propertyService.setIsVisibleStateTo(false);
 
     propertyService.isVisibleState$
-      .subscribe(
-        (value: boolean): boolean =>
-          expect(value)
-            .toEqual(false)
-      );
+      .subscribe((value: boolean): void => {
+        expect(value).toEqual(false);
+      });
   });
 
 });

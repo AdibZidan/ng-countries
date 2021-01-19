@@ -12,42 +12,32 @@ describe('Theme Service', () => {
   });
 
   it('Should be created', () => {
-    expect(themeService)
-      .toBeTruthy();
+    expect(themeService).toBeTruthy();
   });
 
-  it('Should have an initial dark theme', () => {
-    themeService
-      .mode$
-      .subscribe(
-        (theme: Theme): void => {
-          expect(theme).toEqual('dark');
-        }
-      );
+  it('Should have an initial dark theme', (doneFn: DoneFn) => {
+    themeService.mode$.subscribe((theme: Theme): void => {
+      expect(theme).toEqual('dark');
+      doneFn();
+    });
   });
 
   it('Should toggle the theme dynamically', () => {
     themeService.toggleTheme();
 
-    themeService
-      .mode$
+    themeService.mode$
       .pipe(take(1))
-      .subscribe(
-        (theme: Theme): void => {
-          expect(theme).toEqual('light');
-        }
-      );
+      .subscribe((theme: Theme): void => {
+        expect(theme).toEqual('light');
+      });
 
     themeService.toggleTheme();
 
-    themeService
-      .mode$
+    themeService.mode$
       .pipe(take(1))
-      .subscribe(
-        (theme: Theme): void => {
-          expect(theme).toEqual('dark');
-        }
-      );
+      .subscribe((theme: Theme): void => {
+        expect(theme).toEqual('dark');
+      });
   });
 
 });

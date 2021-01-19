@@ -1,7 +1,8 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Theme } from '@shared/enums/theme.enum';
 import { Country } from '@shared/interfaces/country.interface';
 import { syria } from '@shared/mocks/country.mock';
 import { CountryService } from '@shared/services/country/country.service';
@@ -12,11 +13,10 @@ describe('Detail Component', () => {
 
   let component: DetailComponent;
   let fixture: ComponentFixture<DetailComponent>;
-
   let countryService: CountryService;
   let activatedRoute: ActivatedRoute;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [DetailComponent],
       imports: [
@@ -41,114 +41,87 @@ describe('Detail Component', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DetailComponent);
     component = fixture.componentInstance;
-
     countryService = TestBed.inject(CountryService);
     activatedRoute = TestBed.inject(ActivatedRoute);
   });
 
   it('Should create', () => {
-    expect(component)
-      .toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
-  describe('Detail Component Properties', () => {
-
-    it('Should have an undefined mode$ property before initialization', () => {
-      expect(component.mode$)
-        .toBeUndefined();
+  describe('Before initialization', () => {
+    it('Should have an undefined mode$ property', () => {
+      expect(component.mode$).toBeUndefined();
     });
 
-    it('Should have an undefined country$ property before initialization', () => {
-      expect(component.country$)
-        .toBeUndefined();
+    it('Should have an undefined country$ property', () => {
+      expect(component.country$).toBeUndefined();
     });
 
-    it('Should have an undefined borderCountry$ property before initialization', () => {
-      expect(component.borderCountry$)
-        .toBeUndefined();
+    it('Should have an undefined borderCountry$ property', () => {
+      expect(component.borderCountry$).toBeUndefined();
     });
+  });
 
-    it('Should have defined mode$ property after initialization', () => {
+  describe('After initialization', () => {
+    let getCountrySpy: jasmine.Spy;
+    let getCountryCodeSpy: jasmine.Spy;
+
+    beforeEach(() => {
+      getCountrySpy = spyOn(countryService, 'getCountry').and.returnValue(of(syria));
+      getCountryCodeSpy = spyOn(countryService, 'getCountryCode').and.returnValue(of(syria.borders));
       component.ngOnInit();
-
-      expect(component.mode$)
-        .toBeDefined();
     });
 
-    it('Should have defined country$ property after initialization', () => {
-      component.ngOnInit();
+    it('Should have a defined mode$ property', (doneFn: DoneFn) => {
+      expect(component.mode$).toBeDefined();
 
-      expect(component.country$)
-        .toBeDefined();
+      component.mode$.subscribe((theme: Theme): void => {
+        expect(theme).toEqual('dark');
+        doneFn();
+      });
     });
 
-    it('Should have defined borderCountry$ property after initialization', () => {
-      const expectedCodes: string[] = ['IRQ', 'ISR', 'JOR', 'LBN', 'TUR'];
+    it('Should have a defined country$ property', (doneFn: DoneFn) => {
+      expect(component.country$).toBeDefined();
+      expect(getCountrySpy).toHaveBeenCalled();
+      expect(getCountrySpy).toHaveBeenCalledTimes(1);
+      expect(getCountrySpy).toHaveBeenCalledWith(activatedRoute.snapshot.params.country);
 
-      spyOn(
-        countryService,
-        'getCountry'
-      ).and.returnValue(of(syria));
+      component.country$.subscribe((country: Country): void => {
+        expect(country).toEqual(syria);
+        doneFn();
+      });
+    });
 
-      spyOn(
-        countryService,
-        'getCountryCode'
-      ).and.returnValue(of(syria.borders));
-
-      spyOn(
-        component,
-        'getCountry'
-      ).and.callThrough();
-
+    it('Should have a defined borderCountry$ property', (doneFn: DoneFn) => {
       fixture.detectChanges();
 
-      expect(component.borderCountry$)
-        .toBeDefined();
+      const expectedCodes: string[] = ['IRQ', 'ISR', 'JOR', 'LBN', 'TUR'];
 
-      expect(countryService.getCountryCode)
-        .toHaveBeenCalledWith(expectedCodes);
+      expect(component.borderCountry$).toBeDefined();
+      expect(getCountryCodeSpy).toHaveBeenCalledWith(expectedCodes);
 
-      component
-        .borderCountry$
+      component.borderCountry$
         .subscribe((actualCodes: string[]): void => {
-          expect(actualCodes)
-            .toEqual(expectedCodes);
+          expect(actualCodes).toEqual(expectedCodes);
+          doneFn();
         });
     });
 
-  });
+    it('Should get a specific country via the url and assign country$ property to a country', (doneFn: DoneFn) => {
+      const country: string = activatedRoute.snapshot.params.country;
 
-  it('Should get a specific country via the url and assign country$ property to a country', () => {
-    const country: string = activatedRoute.snapshot.params.country;
+      expect(getCountrySpy).toHaveBeenCalled();
+      expect(getCountrySpy).toHaveBeenCalledTimes(1);
+      expect(getCountrySpy).toHaveBeenCalledWith(country);
+      expect(component.country$).toBeDefined();
 
-    spyOn(
-      countryService,
-      'getCountry'
-    ).and.returnValue(of(syria));
-
-    spyOn(
-      component,
-      'getCountry'
-    ).and.callThrough();
-
-    fixture.detectChanges();
-
-    expect(countryService.getCountry)
-      .toHaveBeenCalled();
-
-    expect(countryService.getCountry)
-      .toHaveBeenCalledWith(country);
-
-    expect(component.country$)
-      .toBeDefined();
-
-    component
-      .country$
-      .subscribe(
-        (actualCountry: Country): void => {
-          expect(actualCountry.name)
-            .toEqual('Syria');
-        });
+      component.country$.subscribe((actualCountry: Country): void => {
+        expect(actualCountry.name).toEqual('Syria');
+        doneFn();
+      });
+    });
   });
 
 });

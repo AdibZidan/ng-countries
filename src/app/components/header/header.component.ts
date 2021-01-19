@@ -10,12 +10,12 @@ import { Observable } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
 
-  public mode$: Observable<Theme>;
-
+  public mode$!: Observable<Theme>;
   public isDarkMode: boolean = true;
-  public isLightMode: boolean = false;
 
-  constructor(private themeService: ThemeService) { }
+  constructor(
+    private themeService: ThemeService
+  ) { }
 
   public ngOnInit(): void {
     this.getMode();
@@ -28,7 +28,6 @@ export class HeaderComponent implements OnInit {
 
   private onModeToggle(): void {
     this.isDarkMode = !this.isDarkMode;
-    this.isLightMode = !this.isLightMode;
   }
 
   private getMode(): Observable<Theme> {
