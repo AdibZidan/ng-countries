@@ -68,8 +68,16 @@ describe('Detail Component', () => {
     let getCountryCodeSpy: jasmine.Spy;
 
     beforeEach(() => {
-      getCountrySpy = spyOn(countryService, 'getCountry').and.returnValue(of(syria));
-      getCountryCodeSpy = spyOn(countryService, 'getCountryCode').and.returnValue(of(syria.borders));
+      getCountrySpy = spyOn(
+        countryService,
+        'getCountry$'
+      ).and.returnValue(of(syria));
+
+      getCountryCodeSpy = spyOn(
+        countryService,
+        'getCountryCode$'
+      ).and.returnValue(of(syria.borders));
+
       component.ngOnInit();
     });
 

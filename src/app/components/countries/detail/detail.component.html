@@ -94,7 +94,7 @@
                 <button
                   class="border-countries-button truncate"
                   [class]="mode$ | async"
-                  (click)="getCountry()">
+                  (click)="getCountry$()">
                   <a [routerLink]="'/' + borderCountry.name">
                     {{ borderCountry.name }}
                   </a>

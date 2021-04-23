@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    this.getMode();
+    this.getMode$();
   }
 
   public onThemeToggle(): void {
@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
     this.isDarkMode = !this.isDarkMode;
   }
 
-  private getMode(): Observable<Theme> {
+  private getMode$(): Observable<Theme> {
     return this.mode$ = this.themeService.mode$;
   }
 

@@ -24,7 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ) { }
 
   public ngOnInit(): void {
-    this.getMode();
+    this.getMode$();
     this.handleIsVisibleStateOnRouteChange();
   }
 
@@ -32,7 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this._subscription.unsubscribe();
   }
 
-  private getMode(): Observable<Theme> {
+  private getMode$(): Observable<Theme> {
     return this.mode$ = this.themeService.mode$;
   }
 

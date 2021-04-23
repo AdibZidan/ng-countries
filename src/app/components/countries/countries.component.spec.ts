@@ -70,7 +70,11 @@ describe('Countries Component', () => {
     let getAllCountriesSpy: jasmine.Spy;
 
     beforeEach(() => {
-      getAllCountriesSpy = spyOn(countryService, 'getAllCountries').and.returnValue(of(countries));
+      getAllCountriesSpy = spyOn(
+        countryService,
+        'getAllCountries$'
+      ).and.returnValue(of(countries));
+
       component.ngOnInit();
     });
 

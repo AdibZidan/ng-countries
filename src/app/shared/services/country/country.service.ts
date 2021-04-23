@@ -15,13 +15,13 @@ export class CountryService {
     private httpClient: HttpClient
   ) { }
 
-  public getAllCountries(): Observable<Country[]> {
+  public getAllCountries$(): Observable<Country[]> {
     const url: string = `${this._url}/all`;
 
     return this.httpClient.get<Country[]>(url);
   }
 
-  public getCountry(name: string): Observable<Country> {
+  public getCountry$(name: string): Observable<Country> {
     const url: string = `${this._url}/name/${name}`;
 
     return this.httpClient
@@ -31,7 +31,7 @@ export class CountryService {
       );
   }
 
-  public getCountryCode(codes: string[]): Observable<string[]> {
+  public getCountryCode$(codes: string[]): Observable<string[]> {
     if (!codes || !codes.length) {
       return;
     }

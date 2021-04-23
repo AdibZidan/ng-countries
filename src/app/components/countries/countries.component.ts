@@ -34,7 +34,7 @@ export class CountriesComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.getCountries();
-    this.getMode();
+    this.getMode$();
     this.getIsVisibleState();
   }
 
@@ -69,15 +69,15 @@ export class CountriesComponent implements OnInit, OnDestroy {
   }
 
   private getCountries(): void {
-    this.prepareCache(this._CACHE_KEY);
+    this.prepareCache();
     this.tryCaching();
   }
 
-  private prepareCache(CACHE_KEY: string): void {
+  private prepareCache(): void {
     const subscription: Subscription = this.countryService
-      .getAllCountries()
+      .getAllCountries$()
       .subscribe((countries: Country[]): string =>
-        localStorage[CACHE_KEY] = JSON.stringify(countries)
+        localStorage[this._CACHE_KEY] = JSON.stringify(countries)
       );
 
     this._subscriptions.push(subscription);
@@ -85,7 +85,7 @@ export class CountriesComponent implements OnInit, OnDestroy {
 
   private tryCaching(): void {
     const subscription: Subscription = this.countryService
-      .getAllCountries()
+      .getAllCountries$()
       .pipe(startWith(JSON.parse(localStorage[this._CACHE_KEY] || '[]')))
       .subscribe((countries: Country[]): Country[] =>
         this.countries = countries
@@ -94,7 +94,7 @@ export class CountriesComponent implements OnInit, OnDestroy {
     this._subscriptions.push(subscription);
   }
 
-  private getMode(): Observable<Theme> {
+  private getMode$(): Observable<Theme> {
     return this.mode$ = this.themeService.mode$;
   }
 

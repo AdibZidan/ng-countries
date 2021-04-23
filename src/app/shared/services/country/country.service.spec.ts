@@ -28,7 +28,7 @@ describe('Country Service', () => {
     );
 
     countryService
-      .getAllCountries()
+      .getAllCountries$()
       .subscribe(
         (countries: Country[]): void => {
           const actualCountryNames: string[] = countries.map((country: Country) => country.name);
@@ -49,7 +49,7 @@ describe('Country Service', () => {
     );
 
     countryService
-      .getCountry('Syria')
+      .getCountry$('Syria')
       .subscribe(
         (country: Country): void => {
           expect(country).toEqual(syria);

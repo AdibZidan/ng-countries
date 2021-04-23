@@ -25,15 +25,15 @@ export class DetailComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    this.getCountry();
+    this.getCountry$();
     this.getMode$();
   }
 
-  public getCountry(): Observable<Country> {
+  public getCountry$(): Observable<Country> {
     const country: string = this.getCountryFromParams();
 
     return this.country$ = this.countryService
-      .getCountry(country)
+      .getCountry$(country)
       .pipe(
         this.mergeWithBorderCountries()
       );
@@ -56,7 +56,7 @@ export class DetailComponent implements OnInit {
   }
 
   private getCountryBorderCodes(codes: string[]): void {
-    this.borderCountry$ = this.countryService.getCountryCode(codes);
+    this.borderCountry$ = this.countryService.getCountryCode$(codes);
   }
 
   private getMode$(): Observable<Theme> {
