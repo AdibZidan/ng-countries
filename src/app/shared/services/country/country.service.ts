@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 })
 export class CountryService {
 
-  private readonly _url: string = 'https://restcountries.eu/rest/v2';
+  private readonly _url: string = 'https://restcountries.com/v2';
 
   constructor(
     private httpClient: HttpClient
